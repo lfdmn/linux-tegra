@@ -1,0 +1,256 @@
+    
+
+#include <t18x-common-platforms/tegra186-tx2-cti-camera-base.dtsi>
+#include "dt-bindings/clock/tegra186-clock.h"
+
+
+/* camera control gpio definitions */
+#define CAM0_RST_L  TEGRA_MAIN_GPIO(R, 5)
+#define CAM0_PWDN   TEGRA_MAIN_GPIO(R, 0)
+
+/ {
+    gpio@2200000 {
+        camera-control-output-low {
+            gpio-hog;
+            output-low;
+            gpios = <CAM0_RST_L 0 CAM0_PWDN 0>;
+            label = "cam0-rst", "cam0-pwdn";
+            status = "okay";
+        };
+    };
+
+
+	i2c@3160000 {       //set this to correct i2c bus
+		ov5693_e@36 {   //set this to the correct channel ie ov5693_e is CSI channel 4
+            compatible = "nvidia,ov5693";
+            reg = <0x36>;
+            devnode = "video0";     //set the video#
+            /* Physical dimensions of sensor */
+            physical_w = "3.674";
+            physical_h = "2.738";
+
+            /* Define any required hw resources needed by driver */
+            /* ie. clocks, io pins, power sources */
+            avdd-reg = "vana";
+            iovdd-reg = "vif";
+
+            /* Sensor output flip settings */
+            vertical-flip = "true";
+
+			clocks = <&tegra_car TEGRA186_CLK_EXTPERIPH1>,
+					 <&tegra_car TEGRA186_CLK_PLLP_OUT0>;
+			clock-names = "extperiph1", "pllp_grtba";
+			mclk = "extperiph1";
+			clock-frequency = <24000000>;
+			reset-gpios = <&tegra_main_gpio CAM0_RST_L GPIO_ACTIVE_HIGH>;   //set the GPIOs
+			pwdn-gpios = <&tegra_main_gpio CAM0_PWDN GPIO_ACTIVE_HIGH>;
+//			vana-supply = <&en_vdd_cam_hv_2v8>;
+//			vif-supply = <&en_vdd_cam>;
+			vana-supply = <&battery_reg>;
+			vif-supply = <&battery_reg>;
+            status = "okay";
+
+            mode0 { // OV5693_MODE_2592X1944
+                mclk_khz = "24000";
+                num_lanes = "2";
+                tegra_sinterface = "serial_e";
+                discontinuous_clk = "no";
+                dpcm_enable = "false";
+                cil_settletime = "0";
+
+                active_w = "2592";
+                active_h = "1944";
+                pixel_t = "bayer_bggr";
+                readout_orientation = "90";
+                line_length = "2688";
+                inherent_gain = "1";
+                mclk_multiplier = "6.67";
+                pix_clk_hz = "160000000";
+
+                min_gain_val = "1.0";
+                max_gain_val = "16";
+                min_hdr_ratio = "1";
+                max_hdr_ratio = "64";
+                min_framerate = "1.816577";
+                max_framerate = "30";
+                min_exp_time = "34";
+                max_exp_time = "550385";
+            };
+            mode1 { //OV5693_MODE_2592X1458
+                mclk_khz = "24000";
+                num_lanes = "2";
+                tegra_sinterface = "serial_e";  //set the proper serial interface for the CSI number e = CSI 4 etc
+                discontinuous_clk = "no";
+                dpcm_enable = "false";
+                cil_settletime = "0";
+
+                active_w = "2592";
+                active_h = "1458";
+                pixel_t = "bayer_bggr";
+                readout_orientation = "90";
+                line_length = "2688";
+                inherent_gain = "1";
+                mclk_multiplier = "6.67";
+                pix_clk_hz = "160000000";
+
+                min_gain_val = "1.0";
+                max_gain_val = "16";
+                min_hdr_ratio = "1";
+                max_hdr_ratio = "64";
+                min_framerate = "1.816577";
+                max_framerate = "30";
+                min_exp_time = "34";
+                max_exp_time = "550385";
+            };
+            mode2 { //OV5693_MODE_1280X720
+                mclk_khz = "24000";
+                num_lanes = "2";
+                tegra_sinterface = "serial_e"; 
+                discontinuous_clk = "no";
+                dpcm_enable = "false";
+                cil_settletime = "0";
+
+                active_w = "1280";
+                active_h = "720";
+                pixel_t = "bayer_bggr";
+                readout_orientation = "90";
+                line_length = "1752";
+                inherent_gain = "1";
+                mclk_multiplier = "6.67";
+                pix_clk_hz = "160000000";
+
+                min_gain_val = "1.0";
+                max_gain_val = "16";
+                min_hdr_ratio = "1";
+                max_hdr_ratio = "64";
+                min_framerate = "2.787078";
+                max_framerate = "120";
+                min_exp_time = "22";
+                max_exp_time = "358733";
+            };
+
+            ports {
+                #address-cells = <1>;
+                #size-cells = <0>;
+                status = "okay";
+
+                port@0 {
+                    reg = <0>;
+                    status = "okay";
+                    ov5693_out0: endpoint {
+                        status = "okay";
+                        csi-port = <4>;     //set the CSI port #
+                        bus-width = <2>;    //set the bus width
+                        remote-endpoint = <&csi_in4>;     //should be CSI port# enpoint
+                    };
+                };
+            };
+        };
+	};
+
+
+    e3326_lens_ov5693@P5V27C {
+        min_focus_distance = "0.0";
+        hyper_focal = "0.0";
+        focal_length = "2.67";
+        f_number = "2.0";
+        aperture = "2.0";
+    };
+
+
+	gpio@2200000 {
+		camera-control-output-low {
+			gpio-hog;
+			output-low;
+			gpios = <CAM0_RST_L 0 CAM0_PWDN 0>;
+			label = "cam0-rst", "cam0-pwdn";
+		};
+	};
+
+     host1x {
+        vi@15700000 {
+            num-channels = <1>; //set number of channels
+            status = "okay";
+            ports {
+                port@0 {
+                    status = "okay";
+                    endpoint {
+                        status = "okay";
+                        csi-port = <4>;
+                        bus-width = <2>;
+                        remote-endpoint = <&csi_out4>; 
+                    };
+                };
+            };
+        };
+        nvcsi@150c0000 {
+            num-channels = <6>;
+            channel@4 {
+                status = "okay";
+                ports {
+                    port@0 {
+                        status = "okay";
+                        endpoint@8 {
+                            csi-port = <4>;
+                            bus-width = <2>;
+                            remote-endpoint = <&ov5693_out0>; //should be sensor port under i2c endpoint
+                            status = "okay";
+                        };
+                    };
+                    port@1 {
+                        status = "okay";
+                        endpoint@9 {
+                            status = "okay";
+                            remote-endpoint = <&vi_in0>; 
+                        };
+                    };
+                };
+            };
+        };
+    };
+
+    lens_imx274@A6V26 {
+        min_focus_distance = "0.0";
+        hyper_focal = "0.0";
+        focal_length = "5.00";
+        f_number = "2.0";
+        aperture = "2.2";
+    };
+
+    tegra-camera-platform {
+        compatible = "nvidia, tegra-camera-platform";
+
+        status = "okay";
+        num_csi_lanes = <4>;
+        max_lane_speed = <1500000>;
+        min_bits_per_pixel = <10>;
+        vi_peak_byte_per_pixel = <2>;
+        vi_bw_margin_pct = <25>;
+        max_pixel_rate = <160000>;
+        isp_peak_byte_per_pixel = <5>;
+        isp_bw_margin_pct = <25>;
+        modules {
+            module0 {
+                status = "okay";
+                badge = "imx274_centerright_P5V27C";
+                position = "centerright";
+                orientation = "1";
+                drivernode0 {
+                    /* Declare PCL support driver (classically known as guid)  */
+                    status = "okay";
+                    pcl_id = "v4l2_sensor";
+                    /* Driver v4l2 device name */
+                    devname = "imx274 0-001a";  //set the bus and address of the sensor here 
+                    /* Declare the device-tree hierarchy to driver instance */
+                    proc-device-tree = "/proc/device-tree/i2c@3160000/imx274_a@1a"; //this has to match the camera driver node under i2c 
+                };
+                drivernode1 {
+                    /* Declare PCL support driver (classically known as guid)  */
+                    status = "okay";
+                    pcl_id = "v4l2_lens";
+                    proc-device-tree = "/proc/device-tree/lens_imx274@A6V26/";
+                };
+            };
+        };
+    };
+};

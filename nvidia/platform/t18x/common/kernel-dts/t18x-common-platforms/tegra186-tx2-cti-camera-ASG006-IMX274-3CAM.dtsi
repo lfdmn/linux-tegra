@@ -1,0 +1,747 @@
+    
+
+#include <t18x-common-platforms/tegra186-tx2-cti-camera-base.dtsi>
+#include "dt-bindings/clock/tegra186-clock.h"
+
+
+/* camera control gpio definitions */
+
+#define CAM0_RST_L  TEGRA_MAIN_GPIO(R, 5)
+#define CAM0_PWDN   TEGRA_MAIN_GPIO(R, 0)
+#define CAM1_RST_L  TEGRA_MAIN_GPIO(R, 1)
+#define CAM1_PWDN   TEGRA_MAIN_GPIO(N, 2)
+
+
+/ {
+    
+    gpio@2200000 {
+        camera-control-output-low {
+            gpio-hog;
+            output-low;
+            gpios = <CAM0_RST_L 0 CAM0_PWDN 0
+                 CAM1_RST_L 0 CAM1_PWDN 0>;
+            label = "cam0-rst", "cam0-pwdn",
+                "cam1-rst", "cam1-pwdn";
+        };
+    };
+
+
+/**********************SENSORS******************************************************************/
+
+	i2c@3180000 {       //set this to correct i2c bus 
+        tca9546@70 {    
+            i2c@0{  //cam_i2c/Mux@70/I2C_A
+                #address-cells = <1>;
+                #size-cells = <0>;
+
+                imx274_a@1a {
+                    compatible = "nvidia,imx274";
+                    reg = <0x1a>;
+                    devnode = "video0";
+
+                    /* Physical dimensions of sensor */
+                    physical_w = "3.674";
+                    physical_h = "2.738";
+                    clocks = <&tegra_car TEGRA186_CLK_EXTPERIPH1>,
+                             <&tegra_car TEGRA186_CLK_PLLP_OUT0>;
+                    clock-names = "extperiph1", "pllp_grtba";
+                    mclk = "extperiph1";
+                    sensor_model = "imx274";
+                    delayed_gain = "true";
+                    reset-gpios = <&tegra_main_gpio CAM0_RST_L GPIO_ACTIVE_HIGH>;
+                    vana-supply = <&battery_reg>;
+                    vif-supply = <&battery_reg>;
+                    vdig-supply = <&battery_reg>;
+                    avdd-reg = "vana";
+                    iovdd-reg = "vif";
+                    dvdd-reg = "vdig";
+
+                    mode0 {
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_a";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "3840";
+                        active_h = "2160";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+                        //embedded_metadata_height = "1";
+                    };
+                    mode1 { // IMX274_MODE_1920X1080
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_a";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1920";
+                        active_h = "1080";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+                    mode2 { // IMX274_MODE_1280X720
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_a";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1280";
+                        active_h = "720";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+
+                    mode3 { // IMX274_MODE_1280X540
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_a";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1280";
+                        active_h = "540";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+
+
+                    ports {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+
+                        port@0 {
+                            reg = <0>;
+                            imx274_out0: endpoint {
+                                csi-port = <0>;
+                                bus-width = <4>;
+                                remote-endpoint = <&csi_in0>;
+                            };
+                        };
+                    };
+                };
+                pca9570_a@24 {
+                    compatible = "nvidia,pca9570";
+                    reg = <0x24>;
+                    channel = "a";
+                    drive_ic= "DRV8838";
+                };
+
+
+
+            };
+            i2c@2 {
+                #address-cells = <1>;
+                #size-cells = <0>;
+                imx274_c@1a {
+                    compatible = "nvidia,imx274";
+                    reg = <0x1a>;
+                    devnode = "video1";
+
+                    /* Physical dimensions of sensor */
+                    physical_w = "3.674";
+                    physical_h = "2.738";
+
+                    /* Define any required hw resources needed by driver */
+                    /* ie. clocks, io pins, power sources */
+                    clocks = <&tegra_car TEGRA186_CLK_EXTPERIPH2>,
+                         <&tegra_car TEGRA186_CLK_PLLP_OUT0>;
+                    clock-names = "extperiph2", "pllp_grtba";
+                    mclk = "extperiph2";
+                    reset-gpios = <&gpio_i2c_0_74 1 GPIO_ACTIVE_HIGH>;
+                    vana-supply = <&battery_reg>;
+                    vif-supply = <&battery_reg>;
+                    vdig-supply = <&battery_reg>;
+                    avdd-reg = "vana";
+                    iovdd-reg = "vif";
+                    dvdd-reg = "vdig";
+
+                    mode0 {
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_c";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "3840";
+                        active_h = "2160";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+                        //embedded_metadata_height = "1";
+                    };
+
+                    mode1 { // IMX274_MODE_1920X1080
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_c";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1920";
+                        active_h = "1080";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+                    mode2 { // IMX274_MODE_1280X720
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_c";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1280";
+                        active_h = "720";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+                    mode3 { // IMX274_MODE_1280X540
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_c";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1280";
+                        active_h = "540";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+
+                    ports {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+
+                        port@0 {
+                            reg = <0>;
+                            imx274_out2: endpoint {
+                                csi-port = <2>;
+                                bus-width = <4>;
+                                remote-endpoint = <&csi_in1>;
+                            };
+                        };
+                    };
+                };
+
+                pca9570_b@24 {
+                    compatible = "nvidia,pca9570";
+                    reg = <0x24>;
+                    channel = "b";
+                    drive_ic= "DRV8838";
+                };
+
+
+            };
+        };
+	};
+   i2c@c240000 {
+        tca9546@71{
+            i2c@1 {
+                #address-cells = <1>;
+                #size-cells = <0>;
+                imx274_e@1a {
+                    compatible = "nvidia,imx274";
+                    reg = <0x1a>;
+                    devnode = "video2";
+                    /* Physical dimensions of sensor */
+
+                    physical_w = "3.674";
+                    physical_h = "2.738";
+                    /* Define any required hw resources needed by driver */
+                    /* ie. clocks, io pins, power sources */
+                    clocks = <&tegra_car TEGRA186_CLK_EXTPERIPH1>,
+                             <&tegra_car TEGRA186_CLK_PLLP_OUT0>;
+                    clock-names = "extperiph1", "pllp_grtba";
+                    mclk = "extperiph1";
+                    reset-gpios = <&gpio_i2c_0_74 5 GPIO_ACTIVE_HIGH>;
+                    vana-supply = <&battery_reg>;
+                    vif-supply = <&battery_reg>;
+                    vdig-supply = <&battery_reg>;
+
+
+
+                    /* Define any required hw resources needed by driver */
+                    /* ie. clocks, io pins, power sources */
+                    avdd-reg = "vana";
+                    iovdd-reg = "vif";
+                    dvdd-reg = "vdig";
+
+                    mode0 {
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_e";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "3840";
+                        active_h = "2160";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+                        //embedded_metadata_height = "1";
+                    };
+
+                    mode1 { // IMX274_MODE_1920X1080
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_e";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1920";
+                        active_h = "1080";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+                    mode2 { // IMX274_MODE_1280X720
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_e";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1280";
+                        active_h = "720";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+                    mode3 { // IMX274_MODE_1280X540
+                        mclk_khz = "24000";
+                        num_lanes = "4";
+                        tegra_sinterface = "serial_e";
+                        discontinuous_clk = "yes";
+                        dpcm_enable = "false";
+                        cil_settletime = "0";
+
+                        active_w = "1280";
+                        active_h = "540";
+                        pixel_t = "bayer_rggb";
+                        readout_orientation = "90";
+                        line_length = "4200";
+                        inherent_gain = "1";
+                        mclk_multiplier = "24";
+                        pix_clk_hz = "576000000";
+
+                        min_gain_val = "1.0";
+                        max_gain_val = "180";
+                        min_hdr_ratio = "1";
+                        max_hdr_ratio = "64";
+                        min_framerate = "1.462526";
+                        max_framerate = "60";
+                        min_exp_time = "16.165";
+                        max_exp_time = "165770";
+    //                  embedded_metadata_height = "1";
+                    };
+                    ports {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+
+                        port@0 {
+                            reg = <0>;
+                            imx274_out4: endpoint {
+                                csi-port = <4>;
+                                bus-width = <4>;
+                                remote-endpoint = <&csi_in2>;
+                            };
+                        };
+                    }; 
+                };
+                
+                pca9570_c@24 {
+                    compatible = "nvidia,pca9570";
+                    reg = <0x24>;
+                    channel = "c";
+                    drive_ic= "DRV8838";
+                };
+
+            };
+        };
+    };
+
+/**********************VI******************************************************************/
+
+     host1x {
+        vi@15700000 {
+            num-channels = <3>; //set number of channels
+            status = "okay";
+            ports {
+                port@0 {
+                    status = "okay";
+                    endpoint {
+                        status = "okay";
+                        csi-port = <0>;
+                        bus-width = <4>;
+                        remote-endpoint = <&csi_out0>; 
+                    };
+                };
+
+                port@1 {
+                    status = "okay";
+                    endpoint {
+                        status = "okay";
+                        csi-port = <2>;
+                        bus-width = <4>;
+                        remote-endpoint = <&csi_out1>; 
+                    };
+                };
+                port@2 {
+                    status = "okay";
+                    endpoint {
+                        status = "okay";
+                        csi-port = <4>;
+                        bus-width = <4>;
+                        remote-endpoint = <&csi_out2>; 
+                    };
+                };
+            };
+        };
+
+/**********************CSI******************************************************************/
+        nvcsi@150c0000 {
+            num-channels = <3>;
+
+            channel@0 {
+                status = "okay";
+                ports {
+                     port@0 {
+                        status = "okay";
+                        endpoint@0 {
+                            csi-port = <0>;
+                            bus-width = <4>;
+                            remote-endpoint = <&imx274_out0>; //should be sensor port under i2c endpoint
+                            status = "okay";
+
+                        };
+                    };
+                    port@1 {
+                        status = "okay";
+                        endpoint@1 {
+                            status = "okay";
+                            remote-endpoint = <&vi_in0>; 
+                        };
+                    };
+                };
+            };
+
+            channel@1 {
+                status = "okay";
+                ports {
+                    port@0 {
+                        status = "okay";
+                        endpoint@2 {
+                            csi-port = <2>;
+                            bus-width = <4>;
+                            remote-endpoint = <&imx274_out2>; //should be sensor port under i2c endpoint
+                            status = "okay";
+
+                        };
+                    };
+                    port@1 {
+                        status = "okay";
+                        endpoint@3 {
+                            status = "okay";
+                            remote-endpoint = <&vi_in1>; 
+                        };
+                    };
+                };
+            };
+            channel@2 {
+                status = "okay";
+                ports {
+                    port@0 {
+                        status = "okay";
+                        endpoint@4 {
+                            csi-port = <4>;
+                            bus-width = <4>;
+                            remote-endpoint = <&imx274_out4>; //should be sensor port under i2c endpoint
+                            status = "okay";
+                        };
+                    };
+                    port@1 {
+                        status = "okay";
+                        endpoint@5 {
+                            status = "okay";
+                            remote-endpoint = <&vi_in2>; 
+                        };
+                    };
+                };
+            };
+        };
+    };
+    lens_imx274@A6V26 {
+        min_focus_distance = "0.0";
+        hyper_focal = "0.0";
+        focal_length = "5.00";
+        f_number = "2.0";
+        aperture = "2.2";
+    };
+
+/**********************CAMERA PLATFORM*************************************************************/
+
+    tegra-camera-platform {
+        compatible = "nvidia, tegra-camera-platform";
+        /**
+        * Physical settings to calculate max ISO BW
+        *
+        * num_csi_lanes = <>;
+        * Total number of CSI lanes when all cameras are active
+        *
+        * max_lane_speed = <>;
+        * Max lane speed in Kbit/s
+        *
+        * min_bits_per_pixel = <>;
+        * Min bits per pixel
+        *
+        * vi_peak_byte_per_pixel = <>;
+        * Max byte per pixel for the VI ISO case
+        *
+        * vi_bw_margin_pct = <>;
+        * Vi bandwidth margin in percentage
+        *
+        * max_pixel_rate = <>;
+        * Max pixel rate in Kpixel/s for the ISP ISO case
+        * Set this to the highest pix_clk_hz out of all available modes.
+        *
+        * isp_peak_byte_per_pixel = <>;
+        * Max byte per pixel for the ISP ISO case
+        *
+        * isp_bw_margin_pct = <>;
+        * Isp bandwidth margin in percentage
+        */
+        num_csi_lanes = <12>;
+        max_lane_speed = <1500000>;
+        min_bits_per_pixel = <10>;
+        vi_peak_byte_per_pixel = <2>;
+        vi_bw_margin_pct = <25>;
+        max_pixel_rate = <750000>;
+        isp_peak_byte_per_pixel = <5>;
+        isp_bw_margin_pct = <25>;
+
+        /**
+        * The general guideline for naming badge_info contains 3 parts, and is as follows,
+        * The first part is the camera_board_id for the module; if the module is in a FFD
+        * platform, then use the platform name for this part.
+        * The second part contains the position of the module, ex. “rear” or “front”.
+        * The third part contains the last 6 characters of a part number which is found
+        * in the module's specsheet from the vender.
+        */
+        modules {
+
+            module0 {
+                badge = "imx274_bottom_A6V26";
+                position = "bottom";
+                orientation = "0";
+                status = "okay";
+                drivernode0 {
+                    status = "okay";
+                    pcl_id = "v4l2_sensor";
+                    devname = "imx274 30-001a";
+                    proc-device-tree = "/proc/device-tree/i2c@3180000/tca9546@70/i2c@0/imx274_a@1a";
+                };
+                drivernode1 {
+                    status = "okay";
+                    pcl_id = "v4l2_lens";
+                    proc-device-tree = "/proc/device-tree/lens_imx274@A6V26/";
+                };
+            };
+
+            module1 {
+                badge = "imx274_top_A6V26";
+                position = "top";
+                orientation = "0";
+                status = "okay";
+                drivernode0 {
+                status = "okay";
+                    pcl_id = "v4l2_sensor";
+                    devname = "imx274 32-001a";
+                    proc-device-tree = "/proc/device-tree/i2c@3180000/tca9546@70/i2c@2/imx274_c@1a";
+                };
+                drivernode1 {
+                status = "okay";
+                    pcl_id = "v4l2_lens";
+                    proc-device-tree = "/proc/device-tree/lens_imx274@A6V26/";
+                };
+            };
+
+            module2 {
+                badge = "imx274_center_A6V26";
+                position = "center";
+                orientation = "0";
+                status = "okay";
+                drivernode0 {
+                status = "okay";
+                    pcl_id = "v4l2_sensor";
+                    devname = "imx274 35-001a";
+                    proc-device-tree = "/proc/device-tree/i2c@c240000/tca9546@71/i2c@1/imx274_e@1a";
+                };
+                drivernode1 {
+                status = "okay";
+                    pcl_id = "v4l2_lens";
+                    proc-device-tree = "/proc/device-tree/lens_imx274@A6V26/";
+                };
+            };
+        };
+    };
+};

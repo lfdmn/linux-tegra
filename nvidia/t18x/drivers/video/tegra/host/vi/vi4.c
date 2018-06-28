@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+//#define DEBUG
 #include <linux/debugfs.h>
 #include <linux/of.h>
 #include <linux/of_device.h>

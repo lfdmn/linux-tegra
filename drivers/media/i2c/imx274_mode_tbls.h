@@ -434,13 +434,23 @@ static const imx274_reg mode_1288x546[] = {
 	{IMX274_TABLE_END, 0x0000}
 };
 
+static const imx274_reg imx274_2_lane_conf[] = {
+    {0x312E, 0x01},
+    {0x3AA2, 0x01},
+    {IMX274_TABLE_END, 0x00}
+};
+
+
 enum {
 	IMX274_MODE_3840X2160,
 	IMX274_MODE_1920X1080,
 	IMX274_MODE_1288X546,
 	IMX274_MODE_START_STREAM,
 	IMX274_MODE_STOP_STREAM,
-	IMX274_MODE_TEST_PATTERN,
+    IMX274_MODE_TEST_PATTERN,
+
+    IMX274_MODE_2_LANE,    
+
 };
 
 static const imx274_reg *mode_table[] = {
@@ -450,6 +460,9 @@ static const imx274_reg *mode_table[] = {
 	[IMX274_MODE_START_STREAM]		= imx274_start,
 	[IMX274_MODE_STOP_STREAM]		= imx274_stop,
 	[IMX274_MODE_TEST_PATTERN]		= tp_colorbars,
+
+    [IMX274_MODE_2_LANE] = imx274_2_lane_conf,
+
 };
 
 static const int imx274_30_fr[] = {

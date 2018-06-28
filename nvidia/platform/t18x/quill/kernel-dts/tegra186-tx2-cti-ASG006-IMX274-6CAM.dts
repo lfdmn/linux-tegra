@@ -1,0 +1,12 @@
+
+#include "tegra186-tx2-cti-ASG006-base.dts"
+#include "t18x-common-platforms/tegra186-tx2-cti-camera-ASG006-IMX274-6CAM.dtsi"
+
+
+/{
+    nvidia,dtsfilename = "tegra186-tx2-cti-ASG006-IMX274-6CAM.dts";
+    nvidia,dtbbuildtime = __DATE__, __TIME__;
+
+
+};
+

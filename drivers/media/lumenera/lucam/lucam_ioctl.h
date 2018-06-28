@@ -1,0 +1,220 @@
+#ifndef LUCAM_IOCTL_H
+#define LUCAM_IOCTL_H
+
+#define VIDIO_LUCAM_IOC_MAGIC              'o'
+
+#define VIDIO_LUCAM_GET_STROBE_DELAY       _IOR(VIDIO_LUCAM_IOC_MAGIC, 148, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STROBE_DELAY       _IOW(VIDIO_LUCAM_IOC_MAGIC, 148, lucam_prop_w)
+#define VIDIO_LUCAM_SET_MODE               _IOW(VIDIO_LUCAM_IOC_MAGIC, 150, __u32)
+#define VIDIO_LUCAM_SET_KPS                _IOW(VIDIO_LUCAM_IOC_MAGIC, 151, __u32)
+#define VIDIO_LUCAM_GET_FO_EXPOSURE        _IOR(VIDIO_LUCAM_IOC_MAGIC, 152, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FO_EXPOSURE        _IOW(VIDIO_LUCAM_IOC_MAGIC, 152, lucam_prop_w)
+#define VIDIO_LUCAM_GET_ST_EXPOSURE        _IOR(VIDIO_LUCAM_IOC_MAGIC, 153, lucam_prop_r)
+#define VIDIO_LUCAM_SET_ST_EXPOSURE        _IOW(VIDIO_LUCAM_IOC_MAGIC, 153, lucam_prop_w)
+#define VIDIO_LUCAM_GET_VIDEO_STARTPOS     _IOR(VIDIO_LUCAM_IOC_MAGIC, 154, lucam_format_startpos)
+#define VIDIO_LUCAM_SET_VIDEO_STARTPOS     _IOW(VIDIO_LUCAM_IOC_MAGIC, 154, lucam_format_startpos)
+#define VIDIO_LUCAM_GET_STILL_STARTPOS     _IOR(VIDIO_LUCAM_IOC_MAGIC, 155, lucam_format_startpos)
+#define VIDIO_LUCAM_SET_STILL_STARTPOS     _IOW(VIDIO_LUCAM_IOC_MAGIC, 155, lucam_format_startpos)
+#define VIDIO_LUCAM_GET_FO_COLORID         _IOR(VIDIO_LUCAM_IOC_MAGIC, 156, __u32)
+#define VIDIO_LUCAM_SET_FO_COLORID         _IOW(VIDIO_LUCAM_IOC_MAGIC, 156, __u32)
+#define VIDIO_LUCAM_GET_FO_COLORID2        _IOR(VIDIO_LUCAM_IOC_MAGIC, 156, lucam_color_id_2)
+#define VIDIO_LUCAM_SET_FO_COLORID2        _IOW(VIDIO_LUCAM_IOC_MAGIC, 156, lucam_color_id_2)
+#define VIDIO_LUCAM_GET_ST_COLORID         _IOR(VIDIO_LUCAM_IOC_MAGIC, 157, __u32)
+#define VIDIO_LUCAM_SET_ST_COLORID         _IOW(VIDIO_LUCAM_IOC_MAGIC, 157, __u32)
+#define VIDIO_LUCAM_GET_ST_COLORID2        _IOR(VIDIO_LUCAM_IOC_MAGIC, 157, lucam_color_id_2)
+#define VIDIO_LUCAM_SET_ST_COLORID2        _IOW(VIDIO_LUCAM_IOC_MAGIC, 157, lucam_color_id_2)
+#define VIDIO_LUCAM_GET_FO_GAIN            _IOR(VIDIO_LUCAM_IOC_MAGIC, 158, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FO_GAIN            _IOW(VIDIO_LUCAM_IOC_MAGIC, 158, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FO_RGAIN           _IOR(VIDIO_LUCAM_IOC_MAGIC, 159, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FO_RGAIN           _IOW(VIDIO_LUCAM_IOC_MAGIC, 159, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FO_G1GAIN          _IOR(VIDIO_LUCAM_IOC_MAGIC, 160, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FO_G1GAIN          _IOW(VIDIO_LUCAM_IOC_MAGIC, 160, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FO_G2GAIN          _IOR(VIDIO_LUCAM_IOC_MAGIC, 161, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FO_G2GAIN          _IOW(VIDIO_LUCAM_IOC_MAGIC, 161, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FO_BGAIN           _IOR(VIDIO_LUCAM_IOC_MAGIC, 162, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FO_BGAIN           _IOW(VIDIO_LUCAM_IOC_MAGIC, 162, lucam_prop_w)
+#define VIDIO_LUCAM_GET_ST_GAIN            _IOR(VIDIO_LUCAM_IOC_MAGIC, 163, lucam_prop_r)
+#define VIDIO_LUCAM_SET_ST_GAIN            _IOW(VIDIO_LUCAM_IOC_MAGIC, 163, lucam_prop_w)
+#define VIDIO_LUCAM_GET_ST_RGAIN           _IOR(VIDIO_LUCAM_IOC_MAGIC, 164, lucam_prop_r)
+#define VIDIO_LUCAM_SET_ST_RGAIN           _IOW(VIDIO_LUCAM_IOC_MAGIC, 164, lucam_prop_w)
+#define VIDIO_LUCAM_GET_ST_G1GAIN          _IOR(VIDIO_LUCAM_IOC_MAGIC, 165, lucam_prop_r)
+#define VIDIO_LUCAM_SET_ST_G1GAIN          _IOW(VIDIO_LUCAM_IOC_MAGIC, 165, lucam_prop_w)
+#define VIDIO_LUCAM_GET_ST_G2GAIN          _IOR(VIDIO_LUCAM_IOC_MAGIC, 166, lucam_prop_r)
+#define VIDIO_LUCAM_SET_ST_G2GAIN          _IOW(VIDIO_LUCAM_IOC_MAGIC, 166, lucam_prop_w)
+#define VIDIO_LUCAM_GET_ST_BGAIN           _IOR(VIDIO_LUCAM_IOC_MAGIC, 167, lucam_prop_r)
+#define VIDIO_LUCAM_SET_ST_BGAIN           _IOW(VIDIO_LUCAM_IOC_MAGIC, 167, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_EXPOSURE_DELAY     _IOR(VIDIO_LUCAM_IOC_MAGIC, 169, lucam_prop_r)
+#define VIDIO_LUCAM_SET_EXPOSURE_DELAY     _IOW(VIDIO_LUCAM_IOC_MAGIC, 169, lucam_prop_w)
+#define VIDIO_LUCAM_GET_STROBE_DURATION    _IOR(VIDIO_LUCAM_IOC_MAGIC, 170, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STROBE_DURATION    _IOW(VIDIO_LUCAM_IOC_MAGIC, 170, lucam_prop_w)
+#define VIDIO_LUCAM_GET_SNAPSHOT_SETTING   _IOR(VIDIO_LUCAM_IOC_MAGIC, 171, lucam_prop_r)
+#define VIDIO_LUCAM_SET_SNAPSHOT_SETTING   _IOW(VIDIO_LUCAM_IOC_MAGIC, 171, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_MODE               _IOR(VIDIO_LUCAM_IOC_MAGIC, 172, __u32)
+#define VIDIO_LUCAM_GET_KPS                _IOR(VIDIO_LUCAM_IOC_MAGIC, 173, __u32)
+#define VIDIO_LUCAM_GET_COUNTERS           _IOR(VIDIO_LUCAM_IOC_MAGIC, 174, struct lucam_counters)
+
+#define VIDIO_LUCAM_GET_STILL_SHUTTER_TYPE _IOR(VIDIO_LUCAM_IOC_MAGIC, 175, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STILL_SHUTTER_TYPE _IOW(VIDIO_LUCAM_IOC_MAGIC, 175, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_COLOR_FORMAT       _IOR(VIDIO_LUCAM_IOC_MAGIC, 180, __u32)
+#define VIDIO_LUCAM_GET_COLOR_FORMAT_MORE  _IOR(VIDIO_LUCAM_IOC_MAGIC, 180, lucam_color_id_2)
+#define VIDIO_LUCAM_GET_SUBSAMPLING_INQ    _IOR(VIDIO_LUCAM_IOC_MAGIC, 181, __u32)
+#define VIDIO_LUCAM_SOFTWARE_TRIGGER       _IO(VIDIO_LUCAM_IOC_MAGIC, 182)
+#define VIDIO_LUCAM_GET_TEMPERATURE        _IOR(VIDIO_LUCAM_IOC_MAGIC, 183, lucam_prop_r)
+#define VIDIO_LUCAM_GET_SERIAL_NUMBER      _IOR(VIDIO_LUCAM_IOC_MAGIC, 184, __u32)
+#define VIDIO_LUCAM_GPIO_READ              _IOR(VIDIO_LUCAM_IOC_MAGIC, 185, __u16)
+#define VIDIO_LUCAM_GPIO_WRITE             _IOW(VIDIO_LUCAM_IOC_MAGIC, 186, __u16)
+#define VIDIO_LUCAM_GPIO_SELECT            _IOW(VIDIO_LUCAM_IOC_MAGIC, 187, __u16)
+#define VIDIO_LUCAM_LUT8_SETUP             _IOW(VIDIO_LUCAM_IOC_MAGIC, 188, unsigned char *)
+#define VIDIO_LUCAM_LUT8_GET               _IOR(VIDIO_LUCAM_IOC_MAGIC, 188, unsigned char *)
+#define VIDIO_LUCAM_GET_KPS_COUNT          _IOR(VIDIO_LUCAM_IOC_MAGIC, 189, __u32)
+#define VIDIO_LUCAM_GET_KPS_VALUE          _IOWR(VIDIO_LUCAM_IOC_MAGIC, 189, __u32)
+#define VIDIO_LUCAM_GET_VERSION            _IOR(VIDIO_LUCAM_IOC_MAGIC, 190, lucam_version)
+#define VIDIO_LUCAM_RESET                  _IO(VIDIO_LUCAM_IOC_MAGIC, 191)
+#define VIDIO_LUCAM_GET_TRUE_PIXEL_DEPTH   _IOR(VIDIO_LUCAM_IOC_MAGIC, 191, __u32)
+#define VIDIO_LUCAM_GET_TIMEOUT            _IOR(VIDIO_LUCAM_IOC_MAGIC, 192, __u32)
+#define VIDIO_LUCAM_SET_TIMEOUT            _IOW(VIDIO_LUCAM_IOC_MAGIC, 193, __u32)
+
+#define VIDIO_LUCAM_REQUEST_THRU           _IOWR(VIDIO_LUCAM_IOC_MAGIC, 195, unsigned char *)
+#define VIDIO_LUCAM_SGL_THRU               _IOWR(VIDIO_LUCAM_IOC_MAGIC, 196, unsigned char *)
+#define VIDIO_LUCAM_GET_SNAPSHOT_COUNT     _IOR(VIDIO_LUCAM_IOC_MAGIC, 197, lucam_prop_r)
+#define VIDIO_LUCAM_SET_SNAPSHOT_COUNT     _IOW(VIDIO_LUCAM_IOC_MAGIC, 198, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_IRIS  	          _IOR(VIDIO_LUCAM_IOC_MAGIC, 199, lucam_prop_r)
+#define VIDIO_LUCAM_SET_IRIS  	          _IOW(VIDIO_LUCAM_IOC_MAGIC, 200, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FOCUS 	          _IOR(VIDIO_LUCAM_IOC_MAGIC, 201, lucam_prop_r)
+#define VIDIO_LUCAM_SET_FOCUS 	          _IOW(VIDIO_LUCAM_IOC_MAGIC, 202, lucam_prop_w)
+#define VIDIO_LUCAM_GET_STILL_KNEE1_EXPOSURE 	   _IOR(VIDIO_LUCAM_IOC_MAGIC, 203, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STILL_KNEE1_EXPOSURE 	   _IOW(VIDIO_LUCAM_IOC_MAGIC, 204, lucam_prop_w)
+#define VIDIO_LUCAM_GET_STILL_KNEE2_EXPOSURE 	   _IOR(VIDIO_LUCAM_IOC_MAGIC, 205, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STILL_KNEE2_EXPOSURE 	   _IOW(VIDIO_LUCAM_IOC_MAGIC, 206, lucam_prop_w)
+#define VIDIO_LUCAM_GET_STILL_KNEE3_EXPOSURE 	   _IOR(VIDIO_LUCAM_IOC_MAGIC, 207, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STILL_KNEE3_EXPOSURE 	   _IOW(VIDIO_LUCAM_IOC_MAGIC, 208, lucam_prop_w)
+#define VIDIO_LUCAM_GET_VIDEO_KNEE 	         _IOR(VIDIO_LUCAM_IOC_MAGIC, 209, lucam_prop_r)
+#define VIDIO_LUCAM_SET_VIDEO_KNEE 	         _IOW(VIDIO_LUCAM_IOC_MAGIC, 210, lucam_prop_w)
+#define VIDIO_LUCAM_GET_MODEL_DATA	         _IOR(VIDIO_LUCAM_IOC_MAGIC, 211, unsigned char *)
+
+#define VIDIO_LUCAM_GET_VIDEO_SUBSAMPLING    _IOR(VIDIO_LUCAM_IOC_MAGIC, 212, lucam_format_subsampling)
+#define VIDIO_LUCAM_SET_VIDEO_SUBSAMPLING    _IOW(VIDIO_LUCAM_IOC_MAGIC, 212, lucam_format_subsampling)
+#define VIDIO_LUCAM_GET_STILL_SUBSAMPLING    _IOR(VIDIO_LUCAM_IOC_MAGIC, 213, lucam_format_subsampling)
+#define VIDIO_LUCAM_SET_STILL_SUBSAMPLING    _IOW(VIDIO_LUCAM_IOC_MAGIC, 213, lucam_format_subsampling)
+#define VIDIO_LUCAM_GET_KNEE2_LEVEL          _IOR(VIDIO_LUCAM_IOC_MAGIC, 214, lucam_prop_r)
+#define VIDIO_LUCAM_SET_KNEE2_LEVEL	         _IOW(VIDIO_LUCAM_IOC_MAGIC, 214, lucam_prop_w)
+
+#define VIDIO_LUCAM_LOCK_EEPROM              _IOW(VIDIO_LUCAM_IOC_MAGIC, 215, unsigned long /* timeout in milliseconds */)
+#define VIDIO_LUCAM_UNLOCK_EEPROM	         _IO(VIDIO_LUCAM_IOC_MAGIC, 216)
+
+#define VIDIO_LUCAM_GPIO_CONFIGURE           _IOW(VIDIO_LUCAM_IOC_MAGIC, 217, __u16)
+
+#define VIDIO_LUCAM_WAIT_EVENT               _IOR(VIDIO_LUCAM_IOC_MAGIC, 218, lucam_event_bits)
+#define VIDIO_LUCAM_WAIT_EVENT_CANCEL        _IO(VIDIO_LUCAM_IOC_MAGIC, 218)
+#define VIDIO_LUCAM_LUT16_SETUP              _IOW(VIDIO_LUCAM_IOC_MAGIC, 219, unsigned char *)
+#define VIDIO_LUCAM_LUT16_GET                _IOR(VIDIO_LUCAM_IOC_MAGIC, 219, unsigned char *)
+
+#define VIDIO_LUCAM_GET_TIMESTAMPS           _IOR(VIDIO_LUCAM_IOC_MAGIC, 220, lucam_prop_r)
+#define VIDIO_LUCAM_SET_TIMESTAMPS	         _IOW(VIDIO_LUCAM_IOC_MAGIC, 220, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_LUCAM_FLAGS          _IOR(VIDIO_LUCAM_IOC_MAGIC, 221, __u32)
+
+#define VIDIO_LUCAM_GET_BPC                  _IOR(VIDIO_LUCAM_IOC_MAGIC, 222, lucam_prop_r)
+#define VIDIO_LUCAM_SET_BPC	               _IOW(VIDIO_LUCAM_IOC_MAGIC, 222, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_TRIGGER_PIN          _IOR(VIDIO_LUCAM_IOC_MAGIC, 223, lucam_prop_r)
+#define VIDIO_LUCAM_SET_TRIGGER_PIN          _IOW(VIDIO_LUCAM_IOC_MAGIC, 223, lucam_prop_w)
+#define VIDIO_LUCAM_GET_STROBE_PIN           _IOR(VIDIO_LUCAM_IOC_MAGIC, 224, lucam_prop_r)
+#define VIDIO_LUCAM_SET_STROBE_PIN           _IOW(VIDIO_LUCAM_IOC_MAGIC, 224, lucam_prop_w)
+
+//#define VIDIO_LUCAM_GET_FLASH                _IOR(VIDIO_LUCAM_IOC_MAGIC, 225, lucam_flash_access)
+//#define VIDIO_LUCAM_SET_FLASH                _IOW(VIDIO_LUCAM_IOC_MAGIC, 226, lucam_flash_access)
+#define VIDIO_LUCAM_FLASH                    _IOWR(VIDIO_LUCAM_IOC_MAGIC, 225, lucam_flash_access)
+
+#define VIDIO_LUCAM_GET_GAMMA                _IOR(VIDIO_LUCAM_IOC_MAGIC, 226, lucam_prop_r)
+#define VIDIO_LUCAM_SET_GAMMA                _IOW(VIDIO_LUCAM_IOC_MAGIC, 226, lucam_prop_w)
+#define VIDIO_LUCAM_GET_CONTRAST             _IOR(VIDIO_LUCAM_IOC_MAGIC, 227, lucam_prop_r)
+#define VIDIO_LUCAM_SET_CONTRAST             _IOW(VIDIO_LUCAM_IOC_MAGIC, 227, lucam_prop_w)
+#define VIDIO_LUCAM_GET_BRIGHTNESS           _IOR(VIDIO_LUCAM_IOC_MAGIC, 228, lucam_prop_r)
+#define VIDIO_LUCAM_SET_BRIGHTNESS           _IOW(VIDIO_LUCAM_IOC_MAGIC, 228, lucam_prop_w)
+
+#define VIDIO_LUCAM_GET_VIDEO_SETTING        _IOR(VIDIO_LUCAM_IOC_MAGIC, 229, lucam_prop_r)
+#define VIDIO_LUCAM_SET_VIDEO_SETTING        _IOW(VIDIO_LUCAM_IOC_MAGIC, 229, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FO_UNIT_SIZE         _IOR(VIDIO_LUCAM_IOC_MAGIC, 230, __u32)
+#define VIDIO_LUCAM_GET_AUTO_EXP_TARGET      _IOR(VIDIO_LUCAM_IOC_MAGIC, 231, lucam_prop_r)
+#define VIDIO_LUCAM_SET_AUTO_EXP_TARGET  	 _IOW(VIDIO_LUCAM_IOC_MAGIC, 231, lucam_prop_w)
+#define VIDIO_LUCAM_GET_TIMESTAMP_FREQ_HIGH  _IOR(VIDIO_LUCAM_IOC_MAGIC, 232, lucam_prop_r)
+#define VIDIO_LUCAM_GET_TIMESTAMP_FREQ_LOW   _IOR(VIDIO_LUCAM_IOC_MAGIC, 233, lucam_prop_r)
+#define VIDIO_LUCAM_GET_TIMESTAMP_VALUE_HIGH _IOR(VIDIO_LUCAM_IOC_MAGIC, 234, lucam_prop_r)
+#define VIDIO_LUCAM_GET_TIMESTAMP_VALUE_LOW  _IOR(VIDIO_LUCAM_IOC_MAGIC, 235, lucam_prop_r)
+#define VIDIO_LUCAM_GET_REALTIMESTAMP        _IOR(VIDIO_LUCAM_IOC_MAGIC, 236, __u32)
+#define VIDIO_LUCAM_SET_REALTIMESTAMP        _IOW(VIDIO_LUCAM_IOC_MAGIC, 236, __u32)
+#define VIDIO_LUCAM_SET_TIMESTAMP_CTRL_LATCH _IOW(VIDIO_LUCAM_IOC_MAGIC, 237, __u32)
+#define VIDIO_LUCAM_SET_TIMESTAMP_CTRL_RESET _IOW(VIDIO_LUCAM_IOC_MAGIC, 238, __u32)
+#define VIDIO_LUCAM_GET_AUTO_EXP_MAX         _IOR(VIDIO_LUCAM_IOC_MAGIC, 239, lucam_prop_r)
+#define VIDIO_LUCAM_SET_AUTO_EXP_MAX         _IOW(VIDIO_LUCAM_IOC_MAGIC, 239, lucam_prop_w)
+#define VIDIO_LUCAM_GET_AUTO_GAIN_MIN        _IOR(VIDIO_LUCAM_IOC_MAGIC, 240, lucam_prop_r)
+#define VIDIO_LUCAM_SET_AUTO_GAIN_MIN        _IOW(VIDIO_LUCAM_IOC_MAGIC, 240, lucam_prop_w)
+#define VIDIO_LUCAM_GET_AUTO_GAIN_MAX        _IOR(VIDIO_LUCAM_IOC_MAGIC, 241, lucam_prop_r)
+#define VIDIO_LUCAM_SET_AUTO_GAIN_MAX        _IOW(VIDIO_LUCAM_IOC_MAGIC, 241, lucam_prop_w)
+#define VIDIO_LUCAM_GET_TIMESTAMP_HW_RESET   _IOR(VIDIO_LUCAM_IOC_MAGIC, 242, lucam_prop_r)
+#define VIDIO_LUCAM_SET_TIMESTAMP_HW_RESET   _IOW(VIDIO_LUCAM_IOC_MAGIC, 242, lucam_prop_w)
+#define VIDIO_LUCAM_GET_FOCAL_LENGTH         _IOR(VIDIO_LUCAM_IOC_MAGIC, 243, lucam_prop_r)
+#define VIDIO_LUCAM_GET_IRIS_STEPS_COUNT     _IOR(VIDIO_LUCAM_IOC_MAGIC, 244, lucam_prop_r)
+#define VIDIO_LUCAM_SET_IRIS_STEPS_COUNT     _IOW(VIDIO_LUCAM_IOC_MAGIC, 244, lucam_prop_w)
+#define VIDIO_LUCAM_GET_LSC_X                _IOR(VIDIO_LUCAM_IOC_MAGIC, 245, lucam_prop_r)
+#define VIDIO_LUCAM_SET_LSC_X                _IOW(VIDIO_LUCAM_IOC_MAGIC, 245, lucam_prop_w)
+#define VIDIO_LUCAM_GET_LSC_Y                _IOR(VIDIO_LUCAM_IOC_MAGIC, 246, lucam_prop_r)
+#define VIDIO_LUCAM_SET_LSC_Y                _IOW(VIDIO_LUCAM_IOC_MAGIC, 246, lucam_prop_w)
+#define VIDIO_LUCAM_GET_TRIGGER_MODE         _IOR(VIDIO_LUCAM_IOC_MAGIC, 247, lucam_prop_r)
+#define VIDIO_LUCAM_SET_TRIGGER_MODE         _IOW(VIDIO_LUCAM_IOC_MAGIC, 247, lucam_prop_w)
+
+
+#define VIDIO_LUCAM_IOC_MAXNR                248
+
+
+/* video for linux 2 pixel formats as they will be defined in kernels later than 2.6.24 */
+
+#ifndef V4L2_PIX_FMT_Y16
+#define V4L2_PIX_FMT_Y16     v4l2_fourcc('Y','1','6',' ') /* 16  Greyscale     */
+#endif
+#ifndef V4L2_PIX_FMT_Y61
+#define V4L2_PIX_FMT_Y61     v4l2_fourcc('Y','6','1',' ') /* Big Endian 16  Greyscale     */
+#endif
+#ifndef V4L2_PIX_FMT_SBGGR8
+#define V4L2_PIX_FMT_SBGGR8  v4l2_fourcc('B','A','8','1') /*  8  BGBG.. GRGR.. */
+#endif
+#ifndef V4L2_PIX_FMT_SRGGB8
+#define V4L2_PIX_FMT_SRGGB8  v4l2_fourcc('R','G','G','B') /*  8  RGRG.. GBGB.. */
+#endif
+#ifndef V4L2_PIX_FMT_SGRBG8
+#define V4L2_PIX_FMT_SGRBG8  v4l2_fourcc('G','R','B','G') /*  8  GRGR.. BGBG.. */
+#endif
+#ifndef V4L2_PIX_FMT_SGBRG8
+#define V4L2_PIX_FMT_SGBRG8  v4l2_fourcc('G','B','R','G') /*  8  GBGB.. RGRG.. */
+#endif
+#ifndef V4L2_PIX_FMT_SBGGR16
+#define V4L2_PIX_FMT_SBGGR16 v4l2_fourcc('B','Y','R','2') /* 16  BGBG.. GRGR.. */
+#endif
+#ifndef V4L2_PIX_FMT_SRGGB16
+#define V4L2_PIX_FMT_SRGGB16 v4l2_fourcc('R','G','1','6') /* 16  RGRG.. GBGB.. */
+#endif
+#ifndef V4L2_PIX_FMT_SGRBG16
+#define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G','R','1','6') /* 16  GRGR.. BGBG.. */
+#endif
+#ifndef V4L2_PIX_FMT_SGBRG16
+#define V4L2_PIX_FMT_SGBRG16 v4l2_fourcc('G','B','1','6') /* 16  GBGB.. RGRG.. */
+#endif
+#ifndef V4L2_PIX_FMT_SBGGR61
+#define V4L2_PIX_FMT_SBGGR61 v4l2_fourcc('B','Y','R','A') /* Big Endian 16  BGBG.. GRGR.. */
+#endif
+#ifndef V4L2_PIX_FMT_SRGGB61
+#define V4L2_PIX_FMT_SRGGB61 v4l2_fourcc('B','Y','R','B') /* Big Endian 16  RGRG.. GBGB.. */
+#endif
+#ifndef V4L2_PIX_FMT_SGRBG61
+#define V4L2_PIX_FMT_SGRBG61 v4l2_fourcc('B','Y','R','C') /* Big Endian 16  GRGR.. BGBG.. */
+#endif
+#ifndef V4L2_PIX_FMT_SGBRG61
+#define V4L2_PIX_FMT_SGBRG61 v4l2_fourcc('B','Y','R','D') /* Big Endian 16  GBGB.. RGRG.. */
+#endif
+
+#endif // LUCAM_IOCTL_H

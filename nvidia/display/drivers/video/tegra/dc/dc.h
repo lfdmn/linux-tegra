@@ -1046,64 +1046,64 @@ struct fb_videomode *tegra_fb_get_mode(struct tegra_dc *dc);
 void tegra_fbcon_set_fb_mode(struct tegra_fb_info *fb_info,
 					struct fb_videomode *mode);
 #else
-static inline __maybe_unused struct tegra_fb_info *tegra_fb_register(
+static inline struct tegra_fb_info *tegra_fb_register(
 	struct platform_device *ndev, struct tegra_dc *dc,
-	struct tegra_fb_data *fb_data, struct resource *fb_mem, void *virt_addr)
+	struct tegra_fb_data *fb_data, struct resource *fb_mem)
 {
 	return NULL;
 }
 
-static inline __maybe_unused void tegra_fb_unregister(struct tegra_fb_info *fb_info)
+static inline void tegra_fb_unregister(struct tegra_fb_info *fb_info)
 {
 }
 
-static inline __maybe_unused void tegra_fb_pan_display_reset(struct tegra_fb_info *fb_info)
+static inline void tegra_fb_pan_display_reset(struct tegra_fb_info *fb_info)
 {
 }
 
-static inline __maybe_unused void tegra_fb_update_monspecs(struct tegra_fb_info *fb_info,
+static inline void tegra_fb_update_monspecs(struct tegra_fb_info *fb_info,
 					    struct fb_monspecs *specs,
 				bool (*mode_filter)(struct fb_videomode *mode))
 {
 }
 
-static inline __maybe_unused void tegra_fb_update_fix(struct tegra_fb_info *fb_info,
+static inline void tegra_fb_update_fix(struct tegra_fb_info *fb_info,
 					struct fb_monspecs *specs)
 {
 }
 
-static inline __maybe_unused struct fb_var_screeninfo *tegra_fb_get_var(struct tegra_fb_info *fb_info)
+static struct fb_var_screeninfo *tegra_fb_get_var(struct tegra_fb_info *fb_info)
 {
 	return NULL;
 }
 
-static inline __maybe_unused int tegra_fb_create_sysfs(struct device *dev)
+static inline int tegra_fb_create_sysfs(struct device *dev)
 {
 	return -ENOENT;
 }
 
-static inline __maybe_unused void tegra_fb_remove_sysfs(struct device *dev)
+static inline void tegra_fb_remove_sysfs(struct device *dev)
 {
 }
 
-static inline __maybe_unused struct tegra_dc_win *tegra_fb_get_win(
+static inline struct tegra_dc_win *tegra_fb_get_win(
 				struct tegra_fb_info *tegra_fb)
 {
 	return NULL;
 }
 
-static inline __maybe_unused struct tegra_dc_win *tegra_fb_get_blank_win(
+static inline struct tegra_dc_win *tegra_fb_get_blank_win(
 				struct tegra_fb_info *tegra_fb)
 {
 	return NULL;
 
 }
 
-static inline __maybe_unused struct fb_videomode *tegra_fb_get_mode(struct tegra_dc *dc)
+static inline struct fb_videomode *tegra_fb_get_mode(struct tegra_dc *dc)
 {
 	return NULL;
 }
-static inline __maybe_unused int tegra_fb_set_win_index(struct tegra_dc *dc, unsigned long win_mask)
+static int tegra_fb_set_win_index(struct tegra_dc *dc, unsigned long win_mask)
 {
 	return 0;
 }
@@ -1205,7 +1205,7 @@ struct device_node *tegra_secondary_panel_get_dt_node(
 struct device_node *tegra_tertiary_panel_get_dt_node(
 				struct tegra_dc_platform_data *pdata);
 #else
-static inline __maybe_unused struct device_node *tegra_tertiary_panel_get_dt_node(
+static inline struct device_node *tegra_tertiary_panel_get_dt_node(
 				struct tegra_dc_platform_data *pdata)
 {
 	return NULL;
@@ -1214,7 +1214,7 @@ static inline __maybe_unused struct device_node *tegra_tertiary_panel_get_dt_nod
 
 bool tegra_is_bl_display_initialized(int instance);
 
-static inline __maybe_unused void find_dc_node(struct device_node **dc1_node,
+static inline void find_dc_node(struct device_node **dc1_node,
 	struct device_node **dc2_node)
 {
 	pr_err("%s: function is unimplemented\n", __func__);

@@ -145,4 +145,3 @@ config GK20A_FREQ_SELECT_STEP
 	  every nth entry, where n is controlled by this config.
 
 trysource "nvidia/nvgpu-t19x/drivers/gpu/nvgpu/Kconfig"
-

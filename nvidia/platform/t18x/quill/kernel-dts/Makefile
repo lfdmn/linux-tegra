@@ -25,6 +25,28 @@ dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-quill-e3313-1000-a00-00-e2598.dtb
 dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-quill-p3489-1000-a00-00-ucm1.dtb
 dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-quill-p3489-1000-a00-00-ucm2.dtb
 
+
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG006-base.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG006-IMX274-3CAM.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG006-IMX274-6CAM.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG001-USB3.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG001-revG+.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG001-mPCIe.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG002-USB3.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG002-revF+.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG002-mPCIe.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG007.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG008.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG008-IMX274.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ASG008-IMX185.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-VPG003.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-VPG003-IMX185-3CAM.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-VPG003-IMX274-3CAM.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ESG503-USB3.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ESG503.dtb
+dtb-$(CONFIG_ARCH_TEGRA_18x_SOC) += tegra186-tx2-cti-ESG503-mPCIe.dtb
+
+
 ifneq ($(dtb-y),)
 dtb-y := $(addprefix $(makefile-path)/,$(dtb-y))
 dts-include += $(makefile-path)

@@ -2005,7 +2005,6 @@ static void tegra_pcie_port_reset(struct tegra_pcie_port *port)
 	unsigned long value;
 
 	PR_FUNC_LINE;
-
 	/* pulse reset signal */
 	/* assert PEX_RST_A */
 	if (gpio_is_valid(port->rst_gpio)) {
@@ -2860,7 +2859,8 @@ static int tegra_pcie_init(struct tegra_pcie *pcie)
 	if (!pcie->num_ports) {
 		dev_info(pcie->dev, "PCIE: no end points detected\n");
 		err = -ENODEV;
-		goto fail_power_off;
+        return err; //do not turn off
+//		goto fail_power_off;
 	}
 	if (IS_ENABLED(CONFIG_PCI_MSI)) {
 		err = tegra_pcie_enable_msi(pcie, false);
@@ -4585,7 +4585,7 @@ static void pcie_delayed_detect(struct work_struct *work)
 #endif
 	ret = tegra_pcie_probe_complete(pcie);
 	if (ret || !pcie->num_ports) {
-		pm_runtime_put_sync(pcie->dev);
+		//pm_runtime_put_sync(pcie->dev);   //do not turn off
 		pm_runtime_disable(pcie->dev);
 		tegra_pd_remove_device(pcie->dev);
 		goto release_regulators;
@@ -5100,6 +5100,7 @@ static void __exit_refok tegra_pcie_exit_driver(void)
 	pm_genpd_deinit(&pcie_domain.tpd.gpd);
 }
 
-module_init(tegra_pcie_init_driver);
+//module_init(tegra_pcie_init_driver);
+fs_initcall(tegra_pcie_init_driver);
 module_exit(tegra_pcie_exit_driver);
 MODULE_LICENSE("GPL v2");

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+//#define DEBUG
 #include <linux/slab.h>
 #include <linux/uaccess.h>
 #include <linux/gpio.h>
@@ -243,11 +243,11 @@ static int imx274_power_on(struct camera_common_data *s_data)
 	}
 
 	if (pw->reset_gpio)
-		gpio_set_value(pw->reset_gpio, 0);
+		gpio_set_value_cansleep(pw->reset_gpio, 0);
 	if (pw->af_gpio)
-		gpio_set_value(pw->af_gpio, 1);
+		gpio_set_value_cansleep(pw->af_gpio, 1);
 	if (pw->pwdn_gpio)
-		gpio_set_value(pw->pwdn_gpio, 0);
+		gpio_set_value_cansleep(pw->pwdn_gpio, 0);
 	usleep_range(10, 20);
 
 
@@ -268,9 +268,9 @@ static int imx274_power_on(struct camera_common_data *s_data)
 
 	usleep_range(1, 2);
 	if (pw->reset_gpio)
-		gpio_set_value(pw->reset_gpio, 1);
+		gpio_set_value_cansleep(pw->reset_gpio, 1);
 	if (pw->pwdn_gpio)
-		gpio_set_value(pw->pwdn_gpio, 1);
+		gpio_set_value_cansleep(pw->pwdn_gpio, 1);
 
 	usleep_range(300, 310);
 
@@ -279,7 +279,7 @@ static int imx274_power_on(struct camera_common_data *s_data)
 
 imx274_dvdd_fail:
 	if (pw->af_gpio)
-		gpio_set_value(pw->af_gpio, 0);
+		gpio_set_value_cansleep(pw->af_gpio, 0);
 
 imx274_iovdd_fail:
 	regulator_disable(pw->dvdd);
@@ -311,11 +311,11 @@ static int imx274_power_off(struct camera_common_data *s_data)
 
 	usleep_range(1, 2);
 	if (pw->reset_gpio)
-		gpio_set_value(pw->reset_gpio, 0);
+		gpio_set_value_cansleep(pw->reset_gpio, 0);
 	if (pw->af_gpio)
-		gpio_set_value(pw->af_gpio, 0);
+		gpio_set_value_cansleep(pw->af_gpio, 0);
 	if (pw->pwdn_gpio)
-		gpio_set_value(pw->pwdn_gpio, 0);
+		gpio_set_value_cansleep(pw->pwdn_gpio, 0);
 	usleep_range(1, 2);
 
 	if (pw->avdd)
@@ -458,6 +458,14 @@ static int imx274_s_stream(struct v4l2_subdev *sd, int enable)
 		if (err)
 			goto exit;
 		}
+    dev_dbg(&client->dev,"%s: Number of CSI lanes: %d\n",__func__,s_data->numlanes);
+    if(s_data->numlanes == 2){
+        dev_dbg(&client->dev,"%s: Setting to 2 CSI Lanes\n",__func__);
+        err = imx274_write_table(priv, mode_table[IMX274_MODE_2_LANE]);
+		if (err)
+			goto exit;
+
+    }
 
 	err = imx274_write_table(priv, mode_table[IMX274_MODE_START_STREAM]);
 	if (err)

@@ -1,0 +1,150 @@
+
+/* New Rudi With USB mux build */
+
+#include "tegra186-tx2-cti-base.dts"
+
+/{
+    nvidia,dtsfilename = "tegra186-tx2-cti-ESG503.dts";
+    nvidia,dtbbuildtime = __DATE__, __TIME__;
+
+    gpio@2200000 {
+    /*enable this to enabled PCIe Controller #2*/
+        pcie0_lane2_mux {
+             status = "okay";
+        };
+    /******************************************/
+    /*enable these two to enable USB3 Port 0*/
+        e3325_sdio_rst {
+           status = "disabled";
+        };
+        e3325_lane0_mux {
+            status = "disabled";
+        };
+    /******************************************/
+
+    };
+    i2c@3160000 {
+        
+        gpio@74{
+            status = "disabled"; 
+            
+             
+        };
+        gpio@77{
+            status = "disabled";
+
+        };
+
+    };
+
+    xhci@3530000 {
+        status = "okay";
+        phys = <&tegra_xusb_padctl TEGRA_PADCTL_PHY_UTMI_P(0)>,
+            <&tegra_xusb_padctl TEGRA_PADCTL_PHY_UTMI_P(1)>,
+            <&tegra_xusb_padctl TEGRA_PADCTL_PHY_UTMI_P(2)>,
+            <&tegra_xusb_padctl TEGRA_PADCTL_PHY_USB3_P(1)>,
+            <&tegra_xusb_padctl TEGRA_PADCTL_PHY_USB3_P(2)>;
+        phy-names = "utmi-0", "utmi-1", "utmi-2", "usb3-1", "usb3-2";
+    };
+
+    pinctrl@3520000 {
+        status = "okay";
+        pinctrl-0 = <&tegra_xusb_padctl_pinmux_default>;
+        pinctrl-names = "default";
+        tegra_xusb_padctl_pinmux_default: pinmux {
+
+            usb2-port0 {
+                nvidia,lanes = "otg-0";
+                nvidia,function = "xusb";
+                nvidia,port-cap = <TEGRA_PADCTL_PORT_OTG_CAP>;
+                nvidia,oc-pin = <0>;
+                status = "okay";
+            };
+            usb2-port1 {
+                nvidia,lanes = "otg-1";
+                nvidia,function = "xusb";
+                nvidia,port-cap = <TEGRA_PADCTL_PORT_HOST_ONLY>;
+                nvidia,oc-pin = <1>;
+                status = "okay";
+            };
+            usb2-port2 {
+                nvidia,lanes = "otg-2";
+                nvidia,function = "xusb";
+                nvidia,port-cap = <TEGRA_PADCTL_PORT_HOST_ONLY>;
+                status = "okay";
+            };
+            usb3-port0 {
+                nvidia,lanes = "usb3-0";
+                nvidia,port-cap = <TEGRA_PADCTL_PORT_HOST_ONLY>;
+                status = "disabled";
+            };
+            usb3-port1 {
+                nvidia,lanes = "usb3-1";
+                nvidia,port-cap = <TEGRA_PADCTL_PORT_HOST_ONLY>;
+                status = "okay";
+            };
+            usb3-port2 {
+                nvidia,lanes = "usb3-2";
+                nvidia,port-cap = <TEGRA_PADCTL_PORT_HOST_ONLY>;
+                status = "okay";
+            };
+        };
+    };
+   
+    i2c@c240000{
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        gpio@74{
+            compatible = "ti,tca9539";
+            reg = <0x74>;
+            gpio-controller;
+            #gpio-cells = <0x2>;
+            vcc-supply = <&battery_reg>;
+            status = "okay";
+         };
+
+    };
+
+     pcie-controller@10003000 {
+        status = "okay";
+        pci@1,0 {
+            nvidia,num-lanes = <1>;
+            status = "okay";
+
+        };
+        pci@2,0 {
+            nvidia,num-lanes = <0>;
+            status = "disabled";
+        };
+        pci@3,0 {
+            nvidia,num-lanes = <1>;
+            status = "okay";
+        };
+    };
+
+    spi@c260000 {
+        status = "okay";
+        can@0 {
+            status = "okay";
+            compatible = "microchip,mcp2515";
+            reg = <0>;
+            clocks = <&can_clock>;
+            interrupt-parent = <&tegra_main_gpio>;
+                /* the first cell defines the
+                    index of the interrupt within the controller, while the second cell is used
+                    to specify any of the following flags:
+                    - bits[3:0] trigger type and level flags
+                    1 = low-to-high edge triggered
+                    2 = high-to-low edge triggered
+                    4 = active high level-sensitive
+                    8 = active low level-sensitive
+                */
+          interrupts = <TEGRA_MAIN_GPIO(I, 4) 0x2>;
+          vdd-supply = <&battery_reg>;
+          xceiver-supply = <&battery_reg>;
+          spi-max-frequency=<6375000>;
+       };
+    };
+
+};

@@ -1,0 +1,144 @@
+menuconfig LUMENERA_USB_CAMERAS
+	tristate "Lumenera USB camera models"
+ 	depends on VIDEO_DEV 
+ 	select VIDEOBUF_VMALLOC
+
+if LUMENERA_USB_CAMERAS
+
+config LM070
+	tristate "lm070"
+
+config LM080
+	tristate "lm080"
+
+config LM130
+	tristate "lm130"
+
+config LM160
+	tristate "lm160"
+
+config LU070
+	tristate "lu070"
+
+config LU080
+	tristate "lu080"
+
+config LU100
+	tristate "lu100"
+
+config LU120
+	tristate "lu120"
+
+config LU130
+	tristate "lu130"
+
+config LU170
+	tristate "lu170"
+
+config LU200
+	tristate "lu200"
+
+config LU270
+	tristate "lu270"
+
+config LU370
+	tristate "lu370"
+
+config LW070
+	tristate "lw070"
+
+config LW110
+	tristate "lw110"
+
+config LW11050
+	tristate "lw11050"
+
+config LW130
+	tristate "lw130"
+
+config LW160
+	tristate "lw160"
+
+config LW16050
+	tristate "lw16050"
+
+config LW230
+	tristate "lw230"
+
+config LW290
+	tristate "lw290"
+
+config LW450
+	tristate "lw450"
+
+config LW570
+	tristate "lw570"
+
+config LW620
+	tristate "lw620"
+
+config LW560
+	tristate "lw560"
+
+config LU170B
+	tristate "lu170b"
+
+config LM11050
+	tristate "lm11050"
+
+config LTCAMUSB
+	tristate "ltcamusb"
+
+config LC080
+	tristate "lc080"
+
+config LC170
+	tristate "lc170"
+
+config LC270
+	tristate "lc270"
+
+config LC370
+	tristate "lc370"
+
+config INFINITY1
+	tristate "infinity1"
+
+config INFINITY3
+	tristate "infinity3"
+
+config INFINITY1_5
+	tristate "infinity1-5"
+
+config INFINITY1_6
+	tristate "infinity1-6"
+
+config INFINITY2_1
+	tristate "infinity2-1"
+
+config INFINITY2_2
+	tristate "infinity2-2"
+
+config INFINITY3_1
+	tristate "infinity3-1"
+
+config INFINITY3_1U
+	tristate "infinity3-1u"
+
+config INFINITY4_4
+	tristate "infinity4-4"
+
+config INFINITY4_11
+	tristate "infinity4-11"
+
+config INFINITYLITE
+	tristate "infinitylite"
+
+config INFINITY2_5
+	tristate "infinity2-5"
+
+config INFINITY1_2B
+	tristate "infinity1-2b"
+
+
+endif
